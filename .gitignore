@@ -1,0 +1,50 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies (if you add npm later)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs (if you add build process later)
+dist/
+build/
+
+# Temporary files
+.tmp/
+temp/
+*.tmp
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+
+# Optional: Service worker cache (if you implement PWA)
+sw.js
+workbox-*.js

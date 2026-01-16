@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Physio-Flex - AI-Powered Exercise Form Correction with Real-Time Rep Counting">
+    <title>Physio-Flex | AI Fitness Trainer</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- MediaPipe Pose Detection -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+</head>
+<body class="theme-dark">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">💪</div>
+                <h1 class="app-title">Physio<span class="accent">Flex</span></h1>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggle" class="btn-icon" aria-label="Toggle theme">
+                    <span class="theme-icon moon">🌙</span>
+                    <span class="theme-icon sun">☀️</span>
+                </button>
+                <button id="settingsBtn" class="btn-icon" aria-label="Settings">
+                    <span>⚙️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Sidebar Panel -->
+        <aside class="sidebar-panel">
+            <!-- Exercise Selector -->
+            <section class="card exercise-selector">
+                <h2 class="card-title">Select Exercise</h2>
+                <div class="select-wrapper">
+                    <select id="exerciseSelect" class="exercise-dropdown" aria-label="Choose exercise">
+                        <option value="" disabled selected>Choose an exercise...</option>
+                        <optgroup label="Upper Body">
+                            <option value="bicepCurls">💪 Bicep Curls</option>
+                            <option value="shoulderPress">🏋️ Shoulder Press</option>
+                            <option value="lateralRaises">🦅 Lateral Raises</option>
+                            <option value="tricepExtensions">💥 Tricep Extensions</option>
+                            <option value="frontRaises">🔥 Front Raises</option>
+                        </optgroup>
+                        <optgroup label="Lower Body">
+                            <option value="squats">🦵 Squats</option>
+                            <option value="lunges">🏃 Lunges</option>
+                            <option value="calfRaises">👟 Calf Raises</option>
+                        </optgroup>
+                        <optgroup label="Core">
+                            <option value="sitUps">🧘 Sit-ups</option>
+                            <option value="plankHold">⏱️ Plank Hold</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Exercise Info -->
+            <section id="exerciseInfo" class="card exercise-info" style="display: none;">
+                <h3 id="exerciseName" class="exercise-title">--</h3>
+                <div class="exercise-meta">
+                    <span class="badge badge-primary" id="targetMuscle">--</span>
+                    <span class="badge badge-secondary" id="difficulty">--</span>
+                </div>
+                <p id="exerciseDescription" class="exercise-description">Select an exercise to begin</p>
+            </section>
+
+            <!-- Live Stats Dashboard -->
+            <section id="statsCard" class="card stats-card" style="display: none;">
+                <h2 class="card-title">Live Stats</h2>
+                
+                <!-- Rep Counter -->
+                <div class="stat-item stat-reps">
+                    <div class="stat-label">Reps Completed</div>
+                    <div id="repCount" class="stat-value stat-value-large">0</div>
+                </div>
+
+                <!-- Current Angle -->
+                <div class="stat-item">
+                    <div class="stat-label">Current Angle</div>
+                    <div class="angle-gauge">
+                        <svg class="gauge-svg" viewBox="0 0 200 120">
+                            <path class="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="12"/>
+                            <path id="gaugeProgress" class="gauge-progress" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="12"/>
+                        </svg>
+                        <div id="angleValue" class="gauge-value">--°</div>
+                    </div>
+                </div>
+
+                <!-- Form Quality -->
+                <div class="stat-item">
+                    <div class="stat-label">Form Quality</div>
+                    <div id="formBadge" class="form-badge badge-good">
+                        <span id="formText">Good</span>
+                        <span id="formPercentage">100%</span>
+                    </div>
+                </div>
+
+                <!-- Session Timer -->
+                <div class="stat-item">
+                    <div class="stat-label">Session Time</div>
+                    <div id="sessionTimer" class="stat-value">00:00</div>
+                </div>
+
+                <!-- Calories Burned -->
+                <div class="stat-item">
+                    <div class="stat-label">Calories Burned</div>
+                    <div id="calorieCount" class="stat-value">0 <span class="stat-unit">kcal</span></div>
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <section class="card controls-card">
+                <h2 class="card-title">Camera Controls</h2>
+                <div class="controls-grid">
+                    <button id="startCameraBtn" class="btn btn-success btn-block">
+                        <span class="btn-icon">📹</span>
+                        Start Camera
+                    </button>
+                    <button id="stopCameraBtn" class="btn btn-danger btn-block" disabled>
+                        <span class="btn-icon">⏹️</span>
+                        Stop Camera
+                    </button>
+                    <button id="resetBtn" class="btn btn-secondary btn-block" disabled>
+                        <span class="btn-icon">🔄</span>
+                        Reset Counter
+                    </button>
+                </div>
+                <div id="cameraStatus" class="status-message">
+                    <span class="status-icon">📷</span>
+                    <span id="statusText">Camera not started</span>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Canvas Area -->
+        <section class="canvas-area">
+            <div class="canvas-container">
+                <video id="videoElement" class="video-feed" autoplay playsinline></video>
+                <canvas id="outputCanvas" class="output-canvas"></canvas>
+                
+                <!-- Feedback Overlay -->
+                <div id="feedbackOverlay" class="feedback-overlay">
+                    <div id="feedbackMessage" class="feedback-message"></div>
+                </div>
+
+                <!-- FPS Counter -->
+                <div class="fps-counter">
+                    <span id="fpsValue">0</span> FPS
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Initializing AI Model...</p>
+                </div>
+
+                <!-- Welcome Screen -->
+                <div id="welcomeScreen" class="welcome-screen">
+                    <div class="welcome-content">
+                        <h2 class="welcome-title">Welcome to Physio<span class="accent">Flex</span></h2>
+                        <p class="welcome-subtitle">AI-Powered Exercise Form Correction</p>
+                        <ul class="feature-list">
+                            <li>✓ Real-time pose detection</li>
+                            <li>✓ Automatic rep counting</li>
+                            <li>✓ 10 different exercises</li>
+                            <li>✓ Form quality feedback</li>
+                            <li>✓ 100% private (client-side only)</li>
+                        </ul>
+                        <p class="welcome-instruction">Select an exercise and start your camera to begin!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div id="exerciseTips" class="exercise-tips">
+                💡 <span id="tipText">Select an exercise to see tips</span>
+            </div>
+            <div class="privacy-notice">
+                🔒 All processing happens locally in your browser. No data is sent to any server.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="strictMode">Form Strictness</label>
+                    <select id="strictMode" class="form-control">
+                        <option value="relaxed">Relaxed (±10°)</option>
+                        <option value="normal" selected>Normal (±5°)</option>
+                        <option value="strict">Strict (±3°)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="voiceFeedback">
+                        <span>Enable Voice Feedback</span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="showSkeleton" checked>
+                        <span>Show Skeleton Overlay</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Modal -->
+    <div id="summaryModal" class="modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Workout Complete! 🎉</h2>
+                <button class="modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">Total Reps</div>
+                        <div id="summaryReps" class="summary-value">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Duration</div>
+                        <div id="summaryTime" class="summary-value">0:00</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Calories</div>
+                        <div id="summaryCalories" class="summary-value">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Avg Form Quality</div>
+                        <div id="summaryForm" class="summary-value">100%</div>
+                    </div>
+                </div>
+                <button id="summaryCloseBtn" class="btn btn-primary btn-block">Continue Training</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script type="module" src="js/exercises.js"></script>
+    <script type="module" src="js/angle-calculator.js"></script>
+    <script type="module" src="js/camera.js"></script>
+    <script type="module" src="js/pose-detection.js"></script>
+    <script type="module" src="js/rep-counter.js"></script>
+    <script type="module" src="js/canvas-renderer.js"></script>
+    <script type="module" src="js/ui-controller.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

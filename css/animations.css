@@ -1,0 +1,499 @@
+/* ========================================
+   ANIMATIONS - KEYFRAMES & TRANSITIONS
+   ======================================== */
+
+/* ===== Fade In Animation ===== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* ===== Slide In Animation ===== */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* ===== Slide Up Animation ===== */
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+/* ===== Scale In Animation ===== */
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* ===== Modal Slide In ===== */
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== Pulse Animation ===== */
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ===== Bounce Animation ===== */
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+/* ===== Shake Animation (for errors) ===== */
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ===== Spin Animation (for loading) ===== */
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* ===== Glow Animation ===== */
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
+    }
+}
+
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* ===== Success Animation ===== */
+
+@keyframes successPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+    }
+}
+
+.success-pulse {
+    animation: successPulse 0.5s ease-in-out;
+}
+
+/* ===== Number Count Animation ===== */
+
+@keyframes countUp {
+    from {
+        transform: translateY(20px) scale(1.5);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.count-up {
+    animation: countUp 0.3s ease-out;
+}
+
+/* ===== Shimmer Loading Effect ===== */
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        var(--bg-tertiary) 0%,
+        var(--bg-secondary) 50%,
+        var(--bg-tertiary) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* ===== Skeleton Pulse (for loading states) ===== */
+
+@keyframes skeletonPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.skeleton {
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+/* ===== Progress Bar Fill ===== */
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+}
+
+/* ===== Fade Out Animation ===== */
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+/* ===== Slide Out Animation ===== */
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.slide-out {
+    animation: slideOut 0.3s ease-in;
+}
+
+/* ===== Wobble Animation (for feedback) ===== */
+
+@keyframes wobble {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+}
+
+.wobble {
+    animation: wobble 0.5s ease-in-out;
+}
+
+/* ===== Heartbeat Animation ===== */
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    10%, 30% {
+        transform: scale(1.1);
+    }
+    20%, 40% {
+        transform: scale(1);
+    }
+}
+
+.heartbeat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* ===== Floating Animation ===== */
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ===== Gradient Animation ===== */
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animate {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* ===== Rep Counter Pop Animation ===== */
+
+@keyframes repPop {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+        color: var(--color-success);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.rep-pop {
+    animation: repPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ===== Notification Slide In ===== */
+
+@keyframes notificationSlideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification-slide-in {
+    animation: notificationSlideIn 0.4s ease-out;
+}
+
+/* ===== Skeleton Loading for Canvas ===== */
+
+@keyframes skeletonWave {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.skeleton-wave::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    animation: skeletonWave 1.5s infinite;
+}
+
+/* ===== Micro Interactions ===== */
+
+/* Button Press */
+.btn-press:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+/* Card Lift on Hover */
+.card-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-2xl);
+}
+
+/* Icon Rotate on Hover */
+.icon-rotate:hover {
+    transform: rotate(90deg);
+    transition: transform var(--transition-base);
+}
+
+/* Text Glow on Hover */
+.text-glow:hover {
+    text-shadow: 0 0 10px var(--color-primary);
+    transition: text-shadow var(--transition-base);
+}
+
+/* ===== Transition Classes ===== */
+
+.transition-all {
+    transition: all var(--transition-base);
+}
+
+.transition-fast {
+    transition: all var(--transition-fast);
+}
+
+.transition-slow {
+    transition: all var(--transition-slow);
+}
+
+/* ===== Reduce Motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== Custom Entrance Animations ===== */
+
+/* Stats Card Entrance */
+@keyframes statsEntrance {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.stats-enter {
+    animation: statsEntrance 0.4s ease-out;
+}
+
+/* Canvas Fade In */
+@keyframes canvasFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+.canvas-fade-in {
+    animation: canvasFadeIn 0.6s ease-out;
+}

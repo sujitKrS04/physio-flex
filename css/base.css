@@ -1,0 +1,268 @@
+/* ========================================
+   BASE STYLES - RESET & TYPOGRAPHY
+   ======================================== */
+
+/* Modern CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    overflow-x: hidden;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* ===== Typography ===== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+}
+
+h1 {
+    font-size: var(--font-size-4xl);
+}
+
+h2 {
+    font-size: var(--font-size-3xl);
+}
+
+h3 {
+    font-size: var(--font-size-2xl);
+}
+
+h4 {
+    font-size: var(--font-size-xl);
+}
+
+h5 {
+    font-size: var(--font-size-lg);
+}
+
+h6 {
+    font-size: var(--font-size-base);
+}
+
+p {
+    margin-bottom: var(--space-4);
+    color: var(--text-secondary);
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-primary-light);
+}
+
+ul, ol {
+    list-style: none;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===== Form Elements Reset ===== */
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border: none;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+select {
+    cursor: pointer;
+}
+
+/* ===== Accessibility ===== */
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ===== Scrollbar Styling ===== */
+
+/* Dark Theme Scrollbar */
+.theme-dark ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.theme-dark ::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: var(--radius-full);
+}
+
+.theme-dark ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Light Theme Scrollbar */
+.theme-light ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.theme-light ::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+.theme-light ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: var(--radius-full);
+}
+
+.theme-light ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg-tertiary);
+}
+
+/* ===== Selection ===== */
+
+::selection {
+    background-color: var(--color-primary);
+    color: var(--dark-bg-primary);
+}
+
+/* ===== Utility Classes ===== */
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.font-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+.font-semibold {
+    font-weight: var(--font-weight-semibold);
+}
+
+.font-medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.text-primary {
+    color: var(--text-primary);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.accent {
+    color: var(--color-primary);
+}
+
+/* ===== Responsive Images ===== */
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+/* ===== Container ===== */
+
+.container {
+    width: 100%;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--space-6);
+    }
+}
+
+/* ===== Loading States ===== */
+
+.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* ===== Disabled States ===== */
+
+.disabled, [disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+}
